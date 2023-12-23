@@ -28,7 +28,7 @@ jobs:
       if: steps.dep-cache.outputs.cache-hit != 'true'
       run: npm ci
     - name: connect to db server
-      run: npm start & npx wait-on http://127.0.0.1:${{env.PORT}}
+      run: npm start & npx wait-on http://127.0.0.1:$PORT}
     - name: test app
       run: echo "testing ..."
   deploying:
