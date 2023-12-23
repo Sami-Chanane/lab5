@@ -20,8 +20,8 @@ jobs:
       id: dep-cache
       uses: actions/cache@v3
       with:
-        path: node_module
-        key: dep-key-${{hashFiles('package-lock.json')}}
+        path: node_modules
+        key: dep-key-${{hashFiles('**/package-lock.json')}}
     - name: install dependencies
       if: steps.dep-cache.outputs.cache-hit != 'true'
       run: npm ci
