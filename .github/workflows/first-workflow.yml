@@ -14,7 +14,7 @@ jobs:
       PORT: 8080
     runs-on: ubuntu-latest
     container:
-      name: node:latest
+      image: node:latest
     steps:
     - name: get code
       uses: actions/checkout@v4
