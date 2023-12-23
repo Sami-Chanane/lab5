@@ -1,0 +1,29 @@
+name: first-workflow
+on:
+  push:
+    branches:
+    - master
+    - dev
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+    - name: get code
+      uses: actions/checkout@v4
+    - name: cache dependencies
+      id: dep-cache
+      uses: actions/cache@v3
+      with:
+        path: node_module
+        key: dep-key-${{hashFiles('**/package-lock.json')}}
+    - name: install dependencies
+      if: steps.dep-cache.outputs.cache-hit != 'true'
+      run: npm ci
+    - name: test app
+      run: npm test
+  deploying:
+    needs: [testing]
+    runs-on: ubuntu-latest
+    steps:
+    - name: echo info
+      run: echo "deploying ..."    
