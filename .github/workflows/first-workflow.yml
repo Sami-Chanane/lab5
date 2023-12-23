@@ -6,15 +6,15 @@ on:
     - dev
 jobs:
   testing:
-    env:
-      MONGODB_CLUSTER_ADDRESS: cluster0.bysk2fi.mongodb.net
-      MONGODB_USERNAME: sami
-      MONGODB_PASSWORD: 1shBQul8qdiwKPe0
-      MONGODB_DB_NAME: cluster0
-      PORT: 8080
     runs-on: ubuntu-latest
     container:
       image: node:latest
+      env:
+        MONGODB_CLUSTER_ADDRESS: cluster0.bysk2fi.mongodb.net
+        MONGODB_USERNAME: sami
+        MONGODB_PASSWORD: 1shBQul8qdiwKPe0
+        MONGODB_DB_NAME: cluster0
+        PORT: 8080
     steps:
     - name: get code
       uses: actions/checkout@v4
