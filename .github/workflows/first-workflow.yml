@@ -13,6 +13,8 @@ jobs:
       MONGODB_DB_NAME: cluster0
       PORT: 8080
     runs-on: ubuntu-latest
+    container:
+      name: node:latest
     steps:
     - name: get code
       uses: actions/checkout@v4
