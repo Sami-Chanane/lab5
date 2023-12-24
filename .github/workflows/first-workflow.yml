@@ -9,12 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: node:latest
-      env:
-        MONGODB_CLUSTER_ADDRESS: cluster0.bysk2fi.mongodb.net
-        MONGODB_USERNAME: sami
-        MONGODB_PASSWORD: 1shBQul8qdiwKPe0
-        MONGODB_DB_NAME: cluster0
-        PORT: 8080
+    env:
+      MONGODB_CONNECTION_PROTOCOL: mongodb
+      MONGODB_CLUSTER_ADDRESS: db-service
+      MONGODB_USERNAME: root
+      MONGODB_PASSWORD: rootpw
+      PORT: 8080
+    services:
+      db-service:
+        image: mongo:latest
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: rootpw
     steps:
     - name: get code
       uses: actions/checkout@v4
@@ -28,7 +34,7 @@ jobs:
       if: steps.dep-cache.outputs.cache-hit != 'true'
       run: npm ci
     - name: connect to db server
-      run: npm start & npx wait-on http://127.0.0.1:$PORT
+      run: npm start & npx wait-on http://127.0.0.1:${{env.PORT}}
     - name: test app
       run: echo "testing ..."
   deploying:
